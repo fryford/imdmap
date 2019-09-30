@@ -505,14 +505,14 @@ if(Modernizr.webgl) {
 					dvc.unittext = "change in life expectancy";
 
 					d3.select("#keyunits").append("p").style("float","left").attr("id","keyunit").style("margin-top","-10px").style("margin-left","18px").html(dvc.varunit);
-					d3.select("#keyunits").append("p").style("float","right").attr("id","keyunit").style("margin-top","-10px").style("margin-right","18px").html(dvc.varunit2);
-					d3.select("#keyunits2").append("p").attr("width","100%").attr("id","keyunit").style("text-align","center").style("margin-top","-10px").style("margin-right","18px").html(dvc.varunit3);
+					d3.select("#keyunits").append("p").style("float","right").attr("id","keyunitR").style("margin-top","-10px").style("margin-right","18px").html(dvc.varunit2);
+					d3.select("#keyunits2").append("p").attr("width","100%").style("text-align","center").style("margin-top","-10px").style("margin-right","18px").html(dvc.varunit3);
 
 			} // Ends create key
 
 			function createLegend(keydata) {
 
-							legend = d3.select("#details-content-3").append("p").attr("width","100%").attr("id","keyunit").style("text-align","center").style("margin-top","-10px").style("margin-right","18px").html(dvc.varunit3);
+							legend = d3.select("#details-content-3").append("p").attr("width","100%").style("text-align","center").style("margin-top","-10px").style("margin-right","18px").html(dvc.varunit3);
 
 						 legend = d3.select("#details-content-3")//.append('ul')
 						// 	.attr('class', 'key')

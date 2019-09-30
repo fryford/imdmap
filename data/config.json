@@ -1,0 +1,13 @@
+{"ons":{
+"maptitle": "Median house price",
+"varcolour": ["#37ae3f", "#6cc064", "#97d287", "#bfe4ab", "#e6f5d0","#f0dccd","#eabcb9","#e39ca5","#da7b91","#d0587e"],
+"legendvars":["Overall","Income","Employment","Education","Health","Crime",	"Housing","Environment"],
+"varunit": "&#8593; 10% least deprived",
+"varunit2": "10% most deprived &#8593;",
+"varunit3": "more deprived &#8594;",
+"displaydecimals": 0,
+"legenddecimals": 0,
+"breaks": [0,1,2,3,4,5,6,7,8,9,10],
+"dropticks": true,
+"numberBreaks":10
+}}

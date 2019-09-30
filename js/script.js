@@ -346,7 +346,7 @@ if(Modernizr.webgl) {
 		 			map.setFilter("lsoa-outlines-hover", ["==", "lsoa11cd", e.features[0].properties.lsoa11cd]);
 
 		 			 //selectArea(e.features[0].properties.lsoa11cd);
-
+					updatePercent(e.features[0]);
 		 			setAxisVal(e.features[0].properties.lsoa11nm, e.features[0].properties["imddata_imddata__2"]);
 		 		}
 
@@ -701,7 +701,7 @@ if(Modernizr.webgl) {
 				//var features = map.queryRenderedFeatures(point);
 				disableMouseEvents();
 				setAxisVal(features[0].properties.lsoa11nm, features[0].properties["imddata_imddata__2"]);
-
+				updatePercent(features[0]);
 		 		clearInterval(tilechecker);
 		 	}
 		 },500)

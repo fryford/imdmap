@@ -20,7 +20,9 @@ if(Modernizr.webgl) {
 		oldlsoa11cd = "";
 		firsthover = true;
 
-
+		windowheight = window.innerHeight;
+		console.log(windowheight)
+		d3.select("#map").style("height",windowheight + "px")
 
 		//set title of page
 		//Need to test that this shows up in GA
@@ -250,7 +252,7 @@ if(Modernizr.webgl) {
 })
 
 		$(".search-control").click(function() {
-			$(".search-control").val('')
+			$(".search-control").val('');
 		})
 
 		d3.select(".search-control").on("keydown", function() {
@@ -324,6 +326,7 @@ if(Modernizr.webgl) {
 			//	console.log("here")
 				enableMouseEvents();
 				onLeave();
+				hideaxisVal();
 		});
 
 
@@ -389,6 +392,7 @@ if(Modernizr.webgl) {
 			d3.select("#keyvalue").style("font-weight","bold").text("");
 
 			d3.selectAll(".blocks").attr("stroke","black").attr("stroke-width","2px");
+			d3.selectAll(".legendRect").style("width","2px");
 
 
 		}

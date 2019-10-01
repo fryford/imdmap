@@ -39,7 +39,7 @@ if(Modernizr.webgl) {
 		  container: 'map', // container id
 		  style: 'data/style.json', //stylesheet location
 			//style: 'https://s3-eu-west-1.amazonaws.com/tiles.os.uk/v2/styles/open-zoomstack-night/style.json',
-		  center: [-0.12, 51.5], // starting position51.5074° N, 0.1278
+		  center: [-1.27, 50.9106], // starting position51.5074° N, 0.127850.910637,-1.27441
 		  zoom:12, // starting zoom
 		  minZoom:4,
 			maxZoom: 17, //
@@ -247,7 +247,7 @@ if(Modernizr.webgl) {
 			d3.select(".mapboxgl-ctrl-geolocate").on("click", geolocate);
 
 
-			map.on('zoom', function(){console.log(map.getZoom())});//end mapload
+			//map.on('zoom', function(){console.log(map.getZoom())});//end mapload
 
 })
 

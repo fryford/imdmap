@@ -39,7 +39,7 @@ if(Modernizr.webgl) {
 		  container: 'map', // container id
 		  style: 'data/style.json', //stylesheet location
 			//style: 'https://s3-eu-west-1.amazonaws.com/tiles.os.uk/v2/styles/open-zoomstack-night/style.json',
-		  center: [-1.27, 50.9106], // starting position51.5074° N, 0.127850.910637,-1.27441
+		  center: [-1.27, 50.8106], // starting position51.5074° N, 0.127850.910637,-1.27441
 		  zoom:10, // starting zoom
 		  minZoom:4,
 			maxZoom: 17, //
@@ -392,7 +392,7 @@ if(Modernizr.webgl) {
 			d3.select("#keyvalue").style("font-weight","bold").text("");
 
 			d3.selectAll(".blocks").attr("stroke","black").attr("stroke-width","2px");
-			d3.selectAll(".legendRect").style("width","2px");
+			d3.selectAll(".legendRect").style("width","0px");
 
 
 		}
@@ -545,13 +545,23 @@ if(Modernizr.webgl) {
 								.style("float","right")
 								.style("height","20px")
 								.append("div")
+								.attr("class", "legendRect1")
+								.style("float","left")
+								//.attr("id",function(d,i){return "legendRect" + i})
+								//.style("background","repeating-linear-gradient(to right, #fff, #fff " + (parseInt(d3.select("#bars").style("width")/10)) + "px, #ffd180 10px, #ffd180 20px)")
+								.style("height","8px")
+								.style("margin-top","8px")
+								.append()
+								.append("div")
+								.style("position","relative")
+								.style("top","-8px")
 								.attr("class", "legendRect")
 								.style("float","left")
 								.attr("id",function(d,i){return "legendRect" + i})
-								.style("width","2px")
+								.style("background","white")
 								//.style("background","repeating-linear-gradient(to right, #fff, #fff " + (parseInt(d3.select("#bars").style("width")/10)) + "px, #ffd180 10px, #ffd180 20px)")
 								.style("height","8px")
-								.style("margin-top","8px");
+								.style("margin-top","8px")
 								//
 								// background: repeating-linear-gradient(
 								// 	to right,
@@ -563,7 +573,9 @@ if(Modernizr.webgl) {
 
 								barwidth = parseInt(d3.select("#bars").style("width"));
 
-								d3.selectAll(".legendRect").style("background","repeating-linear-gradient(to right, #fff, #fff " + (((barwidth-20)/10)-2) + "px, #000 2px, #000 " + (((barwidth-20)/10)) +"px)")
+								d3.selectAll(".legendRect1")
+									.style("width",(barwidth-20) + "px")
+									.style("background","repeating-linear-gradient(to right, #666, #666 " + (((barwidth-20)/10)-2) + "px, #000 2px, #000 " + (((barwidth-20)/10)) +"px)")
 
 
 
@@ -589,7 +601,7 @@ if(Modernizr.webgl) {
 				percentages = [Overall,Income,Employment,Education,Health,Crime,Housing,Environment];
 				console.log(percentages)
 				percentages.forEach(function(d,i) {
-					d3.select("#legendRect" + i).transition().duration(300).style("width", parseInt(percentages[i]*((barwidth-20)/10)) + "px");
+					d3.select("#legendRect" + i).transition().duration(300).style("width", (((barwidth-20)/10)-2) + "px").style("left", (((percentages[i]-1)*((barwidth-20)/10))) + "px");
 				});
 
 

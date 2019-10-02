@@ -1,5 +1,5 @@
 {"ons":{
-"maptitle": "Median house price",
+"maptitle": "Indices of multiple deprivation 2019",
 "varcolour": ["#37ae3f", "#6cc064", "#97d287", "#bfe4ab", "#e6f5d0","#f0dccd","#eabcb9","#e39ca5","#da7b91","#d0587e"],
 "legendvars":["Overall","Income","Employment","Education","Health","Crime",	"Housing","Environment"],
 "varunit": "&nbsp;&nbsp;<b>&#x25B2;</b> <br>10% least deprived areas",

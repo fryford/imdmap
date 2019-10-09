@@ -20,8 +20,13 @@ if(Modernizr.webgl) {
 		oldlsoa11cd = "";
 		firsthover = true;
 
+		layernames = ["imddata2_i","imddata2_1","imddata2_e","imddata2_2","imddata2_h","imddata2_c","imddata2_3","imddata2_4"];
+		layername = "imddata2_i";
+
+		hoverlayernames = ["imddata_imddata__2","imddata_imddata__3","imddata_imddata__4","imddata_imddata__5","imddata_imddata__6","imddata_imddata__7","imddata_imddata__8","imddata_imddata__9"]
+		hoverlayername = "imddata_imddata__2";
+
 		windowheight = window.innerHeight;
-		console.log(windowheight)
 		d3.select("#map").style("height",windowheight + "px")
 
 		//set title of page
@@ -119,7 +124,7 @@ if(Modernizr.webgl) {
 		map.on('load', function() {
 
 				map.addLayer({
-					"id": "income",
+					"id": layername,
 					'type': 'fill',
 					"source": {
 						"type": "vector",
@@ -135,7 +140,7 @@ if(Modernizr.webgl) {
 							'fill-outline-color':'rgba(0,0,0,0)',
 							'fill-color': {
 									// Refers to the data of that specific property of the polygon
-								'property': 'imddata2_i',
+								'property': layername,
 								'default': '#666666',
 								// Prevents interpolation of colors between stops
 								'base': 0,
@@ -247,7 +252,6 @@ if(Modernizr.webgl) {
 			d3.select(".mapboxgl-ctrl-geolocate").on("click", geolocate);
 
 
-			//map.on('zoom', function(){console.log(map.getZoom())});//end mapload
 
 })
 
@@ -305,9 +309,8 @@ if(Modernizr.webgl) {
 					var features = map.queryRenderedFeatures(e.point,{layers: ['lsoa-outlines']});
 				 	if(features.length != 0){
 
-						//console.log(features[0].properties)
 
-						setAxisVal(features[0].properties.lsoa11nm, features[0].properties["imddata_imddata__2"]);
+						setAxisVal(features[0].properties.lsoa11nm, features[0].properties[hoverlayername]);
 						updatePercent(e.features[0]);
 					}
 					//setAxisVal(e.features[0].properties.lsoa11nm, e.features[0].properties["houseprice"]);
@@ -323,7 +326,6 @@ if(Modernizr.webgl) {
 		}).on('touchstart click', '.onX', function( ev ){
 				ev.preventDefault();
 				$(this).removeClass('x onX').val('').change();
-			//	console.log("here")
 				enableMouseEvents();
 				onLeave();
 				hideaxisVal();
@@ -350,7 +352,7 @@ if(Modernizr.webgl) {
 
 		 			 //selectArea(e.features[0].properties.lsoa11cd);
 					updatePercent(e.features[0]);
-		 			setAxisVal(e.features[0].properties.lsoa11nm, e.features[0].properties["imddata_imddata__2"]);
+		 			setAxisVal(e.features[0].properties.lsoa11nm, e.features[0].properties[hoverlayername]);
 		 		}
 
 		 		dataLayer.push({
@@ -502,7 +504,6 @@ if(Modernizr.webgl) {
 						d3.select("#horiz").selectAll("text").attr("opacity",0);
 					}
 
-					console.log(x.range()[1]/10);
 
 					d3.selectAll(".tick text").attr("transform","translate(-" + (x.range()[1]/10)/2 + ",0)")
 					//Temporary	hardcode unit text
@@ -533,14 +534,29 @@ if(Modernizr.webgl) {
 							// 	d3.selectAll(".key-item").style("opacity",1);
 							// })
 
-						legend.append('label').attr('class','legendlabel').text(function(d,i) {
+						legend.append("input")
+								.style("float","left")
+								.attr("id",function(d,i){return "radio"+i})
+								.attr("class","input input--radio js-focusable")
+								.attr("type","radio")
+								.attr("name","layerchoice")
+								.attr("value", function(d,i){return layernames[i]})
+								.property("checked", function(d,i){if(i==0){return true}})
+								.on("click",removeLayer)
+
+						legend.append('label')
+						.attr('class','legendlabel').text(function(d,i) {
 							var value = parseFloat(d).toFixed(1);
 							return d;
-						});
+						})
+						.attr("value", function(d,i){return layernames[i]})
+						.on("click",removeLayer);
+
+
 
 						legend.append('div')
 								.attr("id","bars")
-								.style("width","calc(100% - 95px)")
+								.style("width","calc(100% - 100px)")
 								.style("height","8px")
 								.style("float","right")
 								.style("height","20px")
@@ -583,10 +599,76 @@ if(Modernizr.webgl) {
 					} //end createLegend
 
 
+			function removeLayer(){
+
+					map.removeLayer(layername);
+					map.removeSource(layername);
+
+
+
+
+					layername = d3.select(this).attr("value");
+
+					getindexoflayer = layernames.indexOf(layername)
+					hoverlayername = hoverlayernames[getindexoflayer];
+
+					d3.selectAll(".input--radio").property("checked",false);
+					d3.selectAll("#radio" +getindexoflayer).property("checked",true);
+
+					addLayer(layername)
+			}
+
+			function addLayer(layername){
+
+			 if(typeof features !== 'undefined' ) {
+				 setAxisVal(features[0].properties.lsoa11nm, features[0].properties[hoverlayername]);
+
+			 }
+
+				map.addLayer({
+					"id": layername,
+					'type': 'fill',
+					"source": {
+						"id":'vectorsource',
+						"type": "vector",
+						//"tiles": ["http://localhost:8000/tiles/{z}/{x}/{y}.pbf"],
+						"tiles": ["https://cdn.ons.gov.uk/maptiles/t18/tiles/{z}/{x}/{y}.pbf"],
+						"minzoom": 4,
+						"maxzoom": 13
+					},
+					"source-layer": "imddata2",
+					"background-color": "#ccc",
+					'paint': {
+							'fill-opacity':1,
+							'fill-outline-color':'rgba(0,0,0,0)',
+							'fill-color': {
+									// Refers to the data of that specific property of the polygon
+								'property': layername,
+								'default': '#666666',
+								// Prevents interpolation of colors between stops
+								'base': 0,
+								'stops': [
+									[0, '#d0587e'],
+									[1, '#d0587e'],
+									[2, '#da7b91'],
+									[3, '#e39ca5'],
+									[4, '#eabcb9'],
+									[5, '#f0dccd'],
+									[6, '#e6f5d0'],
+									[7, '#bfe4ab'],
+									[8, '#97d287'],
+									[9, '#6cc064'],
+									[10, '#37ae3f']
+
+								]
+							}
+
+						}
+				}, 'lsoa-outlines');
+			}
+
+
 			function updatePercent(props) {
-
-				console.log(props);
-
 
 //"Income","Employment","Education","Health","Crime",	"Environment"],
 		Overall = 11 - props.properties.imddata_imddata__2;
@@ -599,7 +681,6 @@ if(Modernizr.webgl) {
 		Environment= 11 - props.properties.imddata_imddata__9;
 
 				percentages = [Overall,Income,Employment,Education,Health,Crime,Housing,Environment];
-				console.log(percentages)
 				percentages.forEach(function(d,i) {
 					d3.select("#legendRect" + i).transition().duration(300).style("width", (((barwidth-20)/10)-2) + "px").style("left", (((percentages[i]-1)*((barwidth-20)/10))) + "px");
 				});
@@ -612,7 +693,6 @@ if(Modernizr.webgl) {
 	function addFullscreen() {
 
 		currentBody = d3.select("#map").style("height");
-		console.log(currentBody)
 		d3.select(".mapboxgl-ctrl-fullscreen").on("click", setbodyheight)
 
 	}
@@ -644,7 +724,6 @@ if(Modernizr.webgl) {
 		}
 
 	function shrinkbody() {
-		console.log(currentBody);
 		d3.select("#map").style("height",currentBody);
 		pymChild.sendHeight();
 	}
@@ -688,7 +767,6 @@ if(Modernizr.webgl) {
 						//$("#pcError").hide();
 						lat =data1.result.latitude;
 						lng = data1.result.longitude;
-						//console.log(lat,lng);
 						successpc(lat,lng)
 					} else {
 						$(".search-control").val("Sorry, invalid postcode.");
@@ -710,13 +788,13 @@ if(Modernizr.webgl) {
 
 		var tilechecker = setInterval(function(){
 			 features=null
-		 	var features = map.queryRenderedFeatures(point,{layers: ['lsoa-outlines']});
+		 	features = map.queryRenderedFeatures(point,{layers: ['lsoa-outlines']});
 		 	if(features.length != 0){
 		 		 //onrender(),
 		 		map.setFilter("lsoa-outlines-hover", ["==", "lsoa11cd", features[0].properties.lsoa11cd]);
 				//var features = map.queryRenderedFeatures(point);
 				disableMouseEvents();
-				setAxisVal(features[0].properties.lsoa11nm, features[0].properties["imddata_imddata__2"]);
+				setAxisVal(features[0].properties.lsoa11nm, features[0].properties[hoverlayername]);
 				updatePercent(features[0]);
 		 		clearInterval(tilechecker);
 		 	}

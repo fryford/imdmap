@@ -521,10 +521,12 @@ input[type=checkbox]:focus {
   padding-left: 0; }
 
 .input--radio {
-  width: 30px;
-  height: 30px;
+  margin: 1px 0 0 !important;
+  float:left;
+  width: 20px;
+  height: 20px;
   appearance: none;
-  border: 2px solid #206095;
+  border: 4px solid #666;
   padding: 0.5rem;
   font-size: 1rem;
   box-shadow: inset 0 0 0 5px white;
@@ -533,26 +535,26 @@ input[type=checkbox]:focus {
   left: 0.6rem;
   transition: background-color 200ms ease-in, color 200ms ease-in; }
   .input--radio:focus, .input--radio:checked {
-    border-color: #206095;
+    border-color: #fff;
     outline: none; }
 
 .input--radio {
   border-radius: 100px;
-  box-shadow: inset 0 0 0 5px white; }
+  box-shadow: inset 0 0 0 6px #000;}
   .input--radio:checked {
-    background: #1b5f97;
-    box-shadow: inset 0 0 0 5px white; }
+    background: black;
+    box-shadow: inset 0 0 0 6px #000; }
   .input--radio:focus {
-    border-color: #206095;
-    box-shadow: inset 0 0 0 5px white;
+    border-color: #fff;
+    box-shadow: inset 0 0 0 6px #000;
     outline: none; }
     .input--radio:focus:checked {
-      border: 6px solid white; }
+      border: 4px solid white; }
 
 input[type=radio]:focus {
   outline: none;
   position: inherit;
-  box-shadow: 0px 0px 0px 4px #FE781C; }
+  box-shadow: inset 0 0 0 6px #000; }
 
 input[type=checkbox], input[type=radio] {
   -webkit-appearance: none; }

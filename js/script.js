@@ -124,7 +124,7 @@ if(Modernizr.webgl) {
 		map.on('load', function() {
 
 				map.addLayer({
-					"id": layername,
+					"id": "imdlayer",
 					'type': 'fill',
 					"source": {
 						"type": "vector",
@@ -542,7 +542,7 @@ if(Modernizr.webgl) {
 								.attr("name","layerchoice")
 								.attr("value", function(d,i){return layernames[i]})
 								.property("checked", function(d,i){if(i==0){return true}})
-								.on("click",removeLayer)
+								.on("click",repaintLayer)
 
 						legend.append('label')
 						.attr('class','legendlabel').text(function(d,i) {
@@ -550,7 +550,7 @@ if(Modernizr.webgl) {
 							return d;
 						})
 						.attr("value", function(d,i){return layernames[i]})
-						.on("click",removeLayer);
+						.on("click",repaintLayer);
 
 
 
@@ -599,31 +599,50 @@ if(Modernizr.webgl) {
 					} //end createLegend
 
 
-			function removeLayer(){
+			function repaintLayer(){
 
-					map.removeLayer(layername);
-					map.removeSource(layername);
+				layername = d3.select(this).attr("value");
 
+				getindexoflayer = layernames.indexOf(layername)
+				hoverlayername = hoverlayernames[getindexoflayer];
 
+				d3.selectAll(".input--radio").property("checked",false);
+				d3.selectAll("#radio" +getindexoflayer).property("checked",true);
 
+				styleObject = {
+					'property': layername,
+					'default': '#666666',
+					// Prevents interpolation of colors between stops
+					'base': 0,
+					'stops': [
+						[0, '#d0587e'],
+						[1, '#d0587e'],
+						[2, '#da7b91'],
+						[3, '#e39ca5'],
+						[4, '#eabcb9'],
+						[5, '#f0dccd'],
+						[6, '#e6f5d0'],
+						[7, '#bfe4ab'],
+						[8, '#97d287'],
+						[9, '#6cc064'],
+						[10, '#37ae3f']
 
-					layername = d3.select(this).attr("value");
+					]
+						}
 
-					getindexoflayer = layernames.indexOf(layername)
-					hoverlayername = hoverlayernames[getindexoflayer];
+				//repaint area layer map usign the styles above
+				map.setPaintProperty("imdlayer", 'fill-color', styleObject);
 
-					d3.selectAll(".input--radio").property("checked",false);
-					d3.selectAll("#radio" +getindexoflayer).property("checked",true);
+				if(typeof features !== 'undefined' ) {
+ 				 setAxisVal(features[0].properties.lsoa11nm, features[0].properties[hoverlayername]);
 
-					addLayer(layername)
+ 			 }
+
 			}
 
 			function addLayer(layername){
 
-			 if(typeof features !== 'undefined' ) {
-				 setAxisVal(features[0].properties.lsoa11nm, features[0].properties[hoverlayername]);
 
-			 }
 
 				map.addLayer({
 					"id": layername,

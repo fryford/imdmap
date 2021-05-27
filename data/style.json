@@ -16,19 +16,16 @@
         "name": "Places",
         "collapsed": false
       }
-    },
-    "openmaptiles:version": "3.x",
-    "openmaptiles:mapbox:owner": "openmaptiles",
-    "openmaptiles:mapbox:source:url": "mapbox://openmaptiles.4qljc88t"
+    }
   },
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "https://api.maptiler.com/tiles/v3/tiles.json?key=Qi2gszp5uSG09U66VCvH"
+      "tiles": ["https://cdn.ons.gov.uk/maptiles/osm/v1/{z}/{x}/{y}.pbf"]
     }
   },
-  "sprite": "https://openmaptiles.github.io/positron-gl-style/sprite",
-  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=Qi2gszp5uSG09U66VCvH",
+  "sprite": "https://cdn.ons.gov.uk/maptiles/osm/spritesv1/sprite",
+  "glyphs": "https://cdn.ons.gov.uk/maptiles/osm/fontsv1/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
@@ -254,8 +251,7 @@
         "text-rotation-alignment": "map",
         "symbol-spacing": 500,
         "text-font": [
-          "Open Sans Medium Italic",
-          "Open Sans Italic"
+          "Open Sans Regular"
         ],
         "text-size": 12
       },
@@ -1121,7 +1117,6 @@
         "text-transform": "none",
         "symbol-spacing": 350,
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "symbol-placement": "line",
@@ -1166,7 +1161,6 @@
         "text-size": 12,
         "symbol-spacing": 350,
         "text-font": [
-          "Open Sans Light",
           "Open Sans Regular"
         ],
         "symbol-placement": "line",
@@ -1300,7 +1294,6 @@
         "text-size": 12,
         "text-transform": "none",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-justify": "center",
@@ -1345,7 +1338,6 @@
         "text-size": 12,
         "text-transform": "none",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-justify": "center",
@@ -1390,7 +1382,6 @@
         "text-size": 12,
         "text-transform": "none",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-justify": "left",
@@ -1450,7 +1441,6 @@
         },
         "text-transform": "none",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-justify": "left",
@@ -1527,7 +1517,6 @@
         },
         "text-transform": "none",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-justify": "left",
@@ -1604,7 +1593,6 @@
         },
         "text-transform": "none",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-justify": "left",
@@ -1663,7 +1651,6 @@
         "visibility": "visible",
         "text-field": "{name:latin}\n{name:nonlatin}",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-transform": "none",
@@ -1706,8 +1693,7 @@
         "visibility": "visible",
         "text-field": "{name:latin}",
         "text-font": [
-          "Open Sans Light Italic",
-          "Open Sans Italic"
+          "Open Sans Regular"
         ],
         "text-transform": "none",
         "text-size": {
@@ -1765,7 +1751,6 @@
         "visibility": "visible",
         "text-field": "{name:latin}",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-transform": "none",
@@ -1824,7 +1809,6 @@
         "visibility": "visible",
         "text-field": "{name:latin}",
         "text-font": [
-          "Open Sans Regular",
           "Open Sans Regular"
         ],
         "text-transform": "none",
